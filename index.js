@@ -40,4 +40,43 @@ function getUniqueProductCount(listOfProdcuts) {
   return product_obj;
 }
 
+function getUniquePrducts(listOfProducts) {
+  let newlistOfProducts = [];
+  for (let i = 0; i < listOfProducts.length; i++) {
+    // if itmes is not present in newlistOfProducts then we will push this items into our newlistOfProducts;
+
+    if (itemchecker(newlistOfProducts, listOfProducts[i]) === false) {
+      newlistOfProducts.push(listOfProducts[i]);
+    } else {
+      //  if items is already in newlistOfProducts then we will try to increase the quantity of that listOfProducts by latest quantity;
+      for (let j = 0; j < newlistOfProducts.length; j++) {
+        if (
+          listOfProducts[i].productName === newlistOfProducts[j].productName
+        ) {
+          newlistOfProducts[j].quantity += listOfProducts[i].quantity;
+        }
+      }
+    }
+  }
+
+  return newlistOfProducts;
+}
+
+//itemchecker for checking listOfProduct is present in newlistOfProduct or not
+function itemchecker(arr, list) {
+  //if list.productName will already present in arr (newlistOfProducts)  then we will return true;
+  // if list.productName will not present in arr (newlistOfProduct) then we will return false
+  if (arr.length === 0) {
+    return false;
+  } else {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].productName === list.productName) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
 console.log(getUniqueProductCount(listOfProducts));
+console.log(getUniquePrducts(listOfProducts));
